@@ -10,7 +10,7 @@ public class LocationPopupPage extends BasicPage {
 		return this.driver.findElement(By.xpath("//*[@id='header']/div[1]/div/div/div[1]/div/a"));
 	}
 	
-	public WebElement closeLocationForm () {
+	public WebElement getLocationFormButton () {
 		return this.driver.findElement(By.xpath("//*[@id='location-popup']/div/div/div/div/a"));
 	}
 	
@@ -30,12 +30,21 @@ public class LocationPopupPage extends BasicPage {
 		return this.driver.findElement(By.xpath("//*[@name='btn_submit']"));
 	}
 	
+	public void openLocationForm () {
+		getLocationForm().click();
+	}
+	
 	public void setLocation (String locationName) {
 		getKeyword().click();
-		getLocationItem(locationName).click();
-		getLocationInput().click();
-		getSubmit().click();
 		
+		String locationValue = getLocationItem(locationName).getAttribute("data-value");
+		
+		js.executeScript("arguments[0].value=arguments[1]", getLocationInput(), locationValue);
+		js.executeScript("arguments[0].click()", getSubmit());	
+	}
+	
+	public void closeLocationForm () {
+		getLocationFormButton().click();
 	}
 	
 
