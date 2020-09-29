@@ -2,9 +2,11 @@ package tests;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.poi.hpsf.Date;
+
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -15,15 +17,18 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.internal.TestResult;
+
 
 public abstract class BasicTest {
 
 	protected WebDriver driver;
-	protected WebDriverWait waiter; 
+	protected WebDriverWait waiter;
+	protected JavascriptExecutor js;
 	protected String mail = "customer@dummyid.com";
 	protected String pass = "12345678a";
+	protected String locationName = "City Center - Albany";
 	protected String baseUrl = "http://demo.yo-meals.com/";
+	protected String path2file = "images/slika.jpg";
 
 
 	@BeforeClass
@@ -33,13 +38,14 @@ public abstract class BasicTest {
 		driver.manage().window().maximize();
 		this.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		this.driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+		this.js = (JavascriptExecutor) this.driver;
 	}
 	
 	
 	
 	
 	@AfterMethod
-	public void afterTest(TestResult result) throws Exception {
+	public void afterTest(ITestResult result) throws Exception {
 		this.driver.manage().deleteAllCookies();
 		
 		if (result.getStatus() == ITestResult.FAILURE) {
@@ -53,7 +59,7 @@ public abstract class BasicTest {
 	
 	@AfterClass
 	public void afterClass () {
-		this.driver.quit();
+//		this.driver.quit();
 	}
 
 }

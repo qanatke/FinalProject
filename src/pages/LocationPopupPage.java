@@ -1,11 +1,17 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LocationPopupPage extends BasicPage {
 	
-	
+	public LocationPopupPage(WebDriver driver, JavascriptExecutor js, WebDriverWait waiter) {
+		super(driver, js, waiter);
+	}
+
 	public WebElement getLocationForm () {
 		return this.driver.findElement(By.xpath("//*[@id='header']/div[1]/div/div/div[1]/div/a"));
 	}
