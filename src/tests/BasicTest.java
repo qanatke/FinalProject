@@ -28,14 +28,15 @@ public abstract class BasicTest {
 	protected String pass = "12345678a";
 	protected String locationName = "City Center - Albany";
 	protected String baseUrl = "http://demo.yo-meals.com/";
-	protected String path2file = "images/slika.jpg";
+	protected String path2file = "//src/images/slika.jpg";
 
 
 	@BeforeClass
 	public void beforeClass () {
 		System.setProperty("webdriver.chrome.driver", "driver-lib\\chromedriver.exe");
 		this.driver = new ChromeDriver();
-		driver.manage().window().maximize();
+		this.driver.manage().window().maximize();
+		this.waiter = new WebDriverWait(driver, 10);
 		this.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		this.driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 		this.js = (JavascriptExecutor) this.driver;
