@@ -17,6 +17,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.asserts.SoftAssert;
 
 
 public abstract class BasicTest {
@@ -24,11 +25,13 @@ public abstract class BasicTest {
 	protected WebDriver driver;
 	protected WebDriverWait waiter;
 	protected JavascriptExecutor js;
+	protected SoftAssert softAssert;
+	protected String baseUrl = "http://demo.yo-meals.com";
 	protected String mail = "customer@dummyid.com";
 	protected String pass = "12345678a";
 	protected String locationName = "City Center - Albany";
-	protected String baseUrl = "http://demo.yo-meals.com/";
-	protected String path2file = "//src/images/slika.jpg";
+	protected String pathToFile = "images/slika.jpg";
+	
 
 
 	@BeforeClass
@@ -40,6 +43,7 @@ public abstract class BasicTest {
 		this.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		this.driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 		this.js = (JavascriptExecutor) this.driver;
+		softAssert = new SoftAssert();
 	}
 	
 	
