@@ -25,13 +25,13 @@ public class MealPage extends BasicPage {
 		return this.driver.findElement(By.xpath("//*[contains(@class, 'btn--primary')]"));
 	}
 
-	public void addMealToCart(int quantity) {
+	public void addMealToCart(double quantity) {
 		getQuantityInput().sendKeys(Keys.chord(Keys.CONTROL, "a"));
 		getQuantityInput().sendKeys(quantity + "");
 		getAddToCartBtn().click();
 	}
 
-	public void addMeal2favourites() {
+	public void addMealToFavourites() {
 		getFavouriteBtn().click();
 	}
 
