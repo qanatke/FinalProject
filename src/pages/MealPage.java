@@ -21,14 +21,14 @@ public class MealPage extends BasicPage {
 		return this.driver.findElement(By.xpath("//input[@type='number']"));
 	}
 
-	public WebElement getAdd2CartBtn() {
+	public WebElement getAddToCartBtn() {
 		return this.driver.findElement(By.xpath("//*[contains(@class, 'btn--primary')]"));
 	}
 
-	public void addMeal2cart(int quantity) {
+	public void addMealToCart(int quantity) {
 		getQuantityInput().sendKeys(Keys.chord(Keys.CONTROL, "a"));
 		getQuantityInput().sendKeys(quantity + "");
-		getAdd2CartBtn().click();
+		getAddToCartBtn().click();
 	}
 
 	public void addMeal2favourites() {

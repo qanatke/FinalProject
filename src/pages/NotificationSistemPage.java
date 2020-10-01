@@ -21,7 +21,7 @@ public class NotificationSistemPage extends BasicPage {
 		return getNotification().getText();
 	}
 	
-	public void wait2disappear () {
+	public void waitToDisappear () {
 		waiter.until(ExpectedConditions.attributeToBe(By.xpath("//*[contains(@class, 'system_message')]"), "style", "display: none;"));
 	}
 
