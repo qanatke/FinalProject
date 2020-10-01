@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -19,7 +18,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.asserts.SoftAssert;
 
-
 public abstract class BasicTest {
 
 	protected WebDriver driver;
@@ -31,28 +29,23 @@ public abstract class BasicTest {
 	protected String pass = "12345678a";
 	protected String locationName = "City Center - Albany";
 	protected String pathToFile = "images/slika.jpg";
-	
-
 
 	@BeforeClass
-	public void beforeClass () {
+	public void beforeClass() {
 		System.setProperty("webdriver.chrome.driver", "driver-lib\\chromedriver.exe");
 		this.driver = new ChromeDriver();
 		this.driver.manage().window().maximize();
 		this.waiter = new WebDriverWait(driver, 10);
-		this.driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		this.driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		this.driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		this.js = (JavascriptExecutor) this.driver;
 		softAssert = new SoftAssert();
 	}
-	
-	
-	
-	
+
 	@AfterMethod
 	public void afterTest(ITestResult result) throws Exception {
 		this.driver.manage().deleteAllCookies();
-		
+
 		if (result.getStatus() == ITestResult.FAILURE) {
 			File ss = ((TakesScreenshot) this.driver).getScreenshotAs(OutputType.FILE);
 			String fileName = new SimpleDateFormat("yyyyMMddHHmmss'.png'").format(new Date());
@@ -61,9 +54,9 @@ public abstract class BasicTest {
 		}
 
 	}
-	
+
 	@AfterClass
-	public void afterClass () {
+	public void afterClass() {
 		this.driver.quit();
 	}
 
