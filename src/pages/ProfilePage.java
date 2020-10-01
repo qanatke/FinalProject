@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -63,11 +62,10 @@ public class ProfilePage extends BasicPage {
 		return this.driver.findElement(By.xpath("//*[@id='profileInfo']/div/div[1]/div/a"));
 	}
 
-	public void uploadProfilePhoto(String path2file) throws Exception {
+	public void uploadProfilePhoto(String pathToFile) throws Exception {
 		js.executeScript("arguments[0].click()", getPhotoUpload());
-		String imgPath = new File(path2file).getCanonicalPath();
-		getPhotoUpload().sendKeys(imgPath);
-		Thread.sleep(1500);
+		String imgPath = new File(pathToFile).getCanonicalPath();
+		this.driver.findElement(By.xpath("//input[@type='file']")).sendKeys(imgPath);
 	}
 
 	public WebElement getRemovePhotoBtn() {
@@ -80,30 +78,30 @@ public class ProfilePage extends BasicPage {
 
 	public void updateProfileInfo(String fname, String lname, String address, String phone, String zipcode,
 			String country, String state, String city) throws Exception {
-		getEditProfileBtn().click();
-		Thread.sleep(2000);
 
-		getFNameInput().sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		getFNameInput().clear();
 		getFNameInput().sendKeys(fname);
 
-		getLNameInput().sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		getLNameInput().clear();
 		getLNameInput().sendKeys(lname);
 
-		getAddressInput().sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		getAddressInput().clear();
 		getAddressInput().sendKeys(address);
 
-		getPhoneInput().sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		getPhoneInput().clear();
 		getPhoneInput().sendKeys(phone);
 
-		getZipCodeInput().sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		getZipCodeInput().clear();
 		getZipCodeInput().sendKeys(zipcode);
 
 		getCountrySelect().selectByVisibleText(country);
+		
+		//waiting for the list of states to be loaded
 		Thread.sleep(2000);
-
 		getStateSelect().selectByVisibleText(state);
+		
+		//waiting for the list of cities to be loaded
 		Thread.sleep(2000);
-
 		getCitySelect().selectByVisibleText(city);
 
 		getSubmitBtn().click();
