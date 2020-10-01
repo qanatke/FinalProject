@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import pages.AuthPage;
@@ -24,7 +25,7 @@ public class ProfileTest extends BasicTest {
 		locationPopupPage.hidePopup();
 
 		loginPage.login(this.mail, this.pass);
-		softAssert.assertEquals(notification.getMsg(), "Login Successfull");
+		Assert.assertEquals(notification.getMsg(), "Login Successfull", "[ERROR] Login failed.");
 
 		this.driver.navigate().to(baseUrl + "/member/profile");
 
@@ -32,16 +33,14 @@ public class ProfileTest extends BasicTest {
 				"Northants", "Brackley");
 		// waiting to "processing..." msg to change
 		Thread.sleep(500);
-		softAssert.assertEquals(notification.getMsg(), "Setup Successful");
+		Assert.assertEquals(notification.getMsg(), "Setup Successful", "[ERROR] Setup failed.");
 
 		// waiting for update data
 		Thread.sleep(2000);
 
 		authPage.userLogout();
-		softAssert.assertEquals(notification.getMsg(), "Logout Successfull!");
+		Assert.assertEquals(notification.getMsg(), "Logout Successfull!", "[ERROR] Logout failed.");
 
-		softAssert.assertAll();
-		
 	}
 
 	@Test(priority = 10)
@@ -58,25 +57,23 @@ public class ProfileTest extends BasicTest {
 		locationPopupPage.hidePopup();
 
 		loginPage.login(this.mail, this.pass);
-		softAssert.assertEquals(notification.getMsg(), "Login Successfull");
+		Assert.assertEquals(notification.getMsg(), "Login Successfull", "[ERROR] Login failed.");
 
 		this.driver.navigate().to(baseUrl + "/member/profile");
 
 		profilePage.uploadProfilePhoto(pathToFile);
-		softAssert.assertEquals(notification.getMsg(), "Profile Image Uploaded Successfully");
+		Assert.assertEquals(notification.getMsg(), "Profile Image Uploaded Successfully", "[ERROR] Profile image upload failed.");
 		notification.waitToDisappear();
 
 		profilePage.removeProfilePhoto();
 		// waiting to "processing..." msg to change
 		Thread.sleep(500);
-		softAssert.assertEquals(notification.getMsg(), "Profile Image Deleted Successfully");
+		Assert.assertEquals(notification.getMsg(), "Profile Image Deleted Successfully", "[ERROR] Profile image delete failed.");
 		notification.waitToDisappear();
 
 		authPage.userLogout();
-		softAssert.assertEquals(notification.getMsg(), "Logout Successfull!");
+		Assert.assertEquals(notification.getMsg(), "Logout Successfull!", "[ERROR] Logout failed.");
 		notification.waitToDisappear();
-
-		softAssert.assertAll();
 
 	}
 
