@@ -61,11 +61,15 @@ public class ProfilePage extends BasicPage {
 	public WebElement getPhotoUpload() {
 		return this.driver.findElement(By.xpath("//*[@id='profileInfo']/div/div[1]/div/a"));
 	}
+	
+	public WebElement getPhotoInput() {
+		return this.driver.findElement(By.xpath("//input[@type='file']"));
+	}
 
 	public void uploadProfilePhoto(String pathToFile) throws Exception {
 		js.executeScript("arguments[0].click()", getPhotoUpload());
 		String imgPath = new File(pathToFile).getCanonicalPath();
-		this.driver.findElement(By.xpath("//input[@type='file']")).sendKeys(imgPath);
+		getPhotoInput().sendKeys(imgPath);
 	}
 
 	public WebElement getRemovePhotoBtn() {

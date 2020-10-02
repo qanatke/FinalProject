@@ -29,10 +29,8 @@ public class ProfileTest extends BasicTest {
 
 		this.driver.navigate().to(baseUrl + "/member/profile");
 
-		profilePage.updateProfileInfo("Natalia", "Peychev", "Some Adress", "7418-529", "17935", "United Kingdom",
+		profilePage.updateProfileInfo("ime", "prezime", "Some Adress", "7418-529", "17935", "United Kingdom",
 				"Northants", "Brackley");
-		// waiting to "processing..." msg to change
-		Thread.sleep(500);
 		Assert.assertEquals(notification.getMsg(), "Setup Successful", "[ERROR] Setup failed.");
 
 		// waiting for update data
@@ -66,8 +64,6 @@ public class ProfileTest extends BasicTest {
 		notification.waitToDisappear();
 
 		profilePage.removeProfilePhoto();
-		// waiting to "processing..." msg to change
-		Thread.sleep(500);
 		Assert.assertEquals(notification.getMsg(), "Profile Image Deleted Successfully", "[ERROR] Profile image delete failed.");
 		notification.waitToDisappear();
 

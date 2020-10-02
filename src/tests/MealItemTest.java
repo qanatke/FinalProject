@@ -8,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import pages.CartSummaryPage;
 import pages.LocationPopupPage;
@@ -28,8 +29,6 @@ public class MealItemTest extends BasicTest {
 		locationPopupPage.hidePopup();
 
 		mealPage.addMealToCart(3);
-		// waiting for the notification msg to appear
-		Thread.sleep(1000);
 
 		Assert.assertTrue(notification.getMsg().contains("The Following Errors Occurred:"));
 		Assert.assertTrue(notification.getMsg().contains("Please Select Location"));
@@ -38,13 +37,11 @@ public class MealItemTest extends BasicTest {
 		locationPopupPage.getLocationForm().click();
 		locationPopupPage.setLocation(locationName);
 
-		// waiting for the location to be added
+		// waiting for the location to be set
 		Thread.sleep(1000);
 
 		mealPage.addMealToCart(2);
 
-		// waiting for meal to be added
-		Thread.sleep(1500);
 		Assert.assertEquals(notification.getMsg(), "Meal Added To Cart");
 
 	}
@@ -69,8 +66,6 @@ public class MealItemTest extends BasicTest {
 		this.driver.navigate().to(baseUrl + "/meal/lobster-shrimp-chicken-quesadilla-combo");
 		mealPage.addMealToFavourites();
 
-		// waiting for notification to appear
-		Thread.sleep(1500);
 		Assert.assertEquals(notification.getMsg(), "Product has been added to your favorites.");
 
 	}
@@ -82,6 +77,7 @@ public class MealItemTest extends BasicTest {
 		MealPage mealPage = new MealPage(this.driver, this.js, this.waiter);
 		NotificationSistemPage notification = new NotificationSistemPage(this.driver, this.js, this.waiter);
 		CartSummaryPage cartPage = new CartSummaryPage(this.driver, this.js, this.waiter);
+		SoftAssert softAssert = new SoftAssert();
 
 		File meals = new File("data/Data.xlsx");
 		FileInputStream fis = new FileInputStream(meals);
@@ -110,8 +106,6 @@ public class MealItemTest extends BasicTest {
 		Thread.sleep(1000);
 		cartPage.clearAll();
 
-		// waiting to "processing..." msg to change
-		Thread.sleep(1000);
 		Assert.assertEquals(notification.getMsg(), "All meals removed from Cart successfully");
 	}
 

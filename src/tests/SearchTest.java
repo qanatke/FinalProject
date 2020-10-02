@@ -6,10 +6,8 @@ import java.io.FileInputStream;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import com.sun.rowset.internal.Row;
+import org.testng.asserts.SoftAssert;
 
 import pages.LocationPopupPage;
 import pages.MealPage;
@@ -23,6 +21,7 @@ public class SearchTest extends BasicTest {
 		LocationPopupPage locationPopup = new LocationPopupPage(this.driver, this.js, this.waiter);
 		MealPage mealPage = new MealPage(this.driver, this.js, this.waiter);
 		SearchResultPage searchResults = new SearchResultPage(this.driver, this.js, this.waiter);
+		SoftAssert softAssert = new SoftAssert();
 
 		File meals = new File("data/Data.xlsx");
 		FileInputStream fis = new FileInputStream(meals);
