@@ -41,8 +41,6 @@ public abstract class BasicTest {
 
 	@AfterMethod
 	public void afterTest(ITestResult result) throws Exception {
-		this.driver.manage().deleteAllCookies();
-		this.driver.navigate().refresh();
 
 		if (result.getStatus() == ITestResult.FAILURE) {
 			File ss = ((TakesScreenshot) this.driver).getScreenshotAs(OutputType.FILE);
@@ -50,6 +48,9 @@ public abstract class BasicTest {
 			File save = new File("screenshots/" + fileName);
 			FileHandler.copy(ss, save);
 		}
+		
+		this.driver.manage().deleteAllCookies();
+		this.driver.navigate().refresh();
 
 	}
 
