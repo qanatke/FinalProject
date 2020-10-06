@@ -27,7 +27,7 @@ public class SearchResultPage extends BasicPage {
 		return mealsFound;
 	}
 
-	public int mealsCount() {
+	public double mealsCount() {
 		return searchResults().size();
 	}
 }

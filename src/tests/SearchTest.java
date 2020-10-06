@@ -44,14 +44,17 @@ public class SearchTest extends BasicTest {
 
 			locationPopup.getLocationForm().click();
 			locationPopup.setLocation(row.getCell(0).getStringCellValue());
+			Thread.sleep(1500);
 
 			softAssert.assertEquals(searchResults.mealsCount(), row.getCell(2).getNumericCellValue());
 
 			for (int j = 3; j < mealsSearchheet.getRow(i).getCell(2).getNumericCellValue() + 3; j++) {
 				String expected = mealsSearchheet.getRow(i).getCell(j).getStringCellValue();
 				String actual = searchResults.mealNames().get(j - 3);
-				softAssert.assertEquals(actual, expected, " [ERROR] Meal does not exist");
+				softAssert.assertTrue(actual.contains(expected), " [ERROR] Meal does not exist");
 			}
 		}
+		
+		softAssert.assertAll();
 	}
 }
